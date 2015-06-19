@@ -1,0 +1,15 @@
+<h1>Log in</h1>
+
+
+<form action="<%= session_url %>" method="post">
+  <%= form_auth %>
+  <label for="username">Username:</label>
+  <input type="text" name="user[username]" id="username">
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" name="user[password]" id="password">
+
+  <button>Submit</button>
+</form>
+
+<p>If you do not have an account, click here to create one <%= link_to "Create Account", new_user_url %><p>
