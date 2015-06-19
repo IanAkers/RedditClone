@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true}
   after_initialize :ensure_session_token
 
+  has_many :subs,
+    class_name: "Sub",
+    foreign_key: :user_id,
+    primary_key: :id,
+    inverse_of: :moderator
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

@@ -8,6 +8,7 @@
 </head>
 <body>
 <% if current_user %>
+  <a href="<%= user_url(current_user) %>">Profile Page</a>
   <form action="<%= session_url(current_user) %>" method="post">
     <input type="hidden" name="_method" value="delete">
     <%= form_auth %>
