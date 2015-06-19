@@ -1,0 +1,11 @@
+<h1>Create a new Comment for <%= Post.find(@comment.post_id).title.capitalize %>!</h1>
+
+<form action="<%= comments_url %>" method="post">
+  <%= form_auth %>
+  <input type="hidden" name="comment[post_id]" value=<%= @comment.post_id %>>
+  <input type="hidden" name="comment[parent_comment_id]" value=<%= @comment.parent_comment_id %>>
+  <label for="content">Comment Goes Here:</label>
+  <textarea name="comment[content]" rows="8" cols="40"><%= @comment.content %></textarea>
+  <br><br>
+  <button>Submit Comment!</button>
+</form>

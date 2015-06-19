@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     inverse_of: :author
 
   has_many :comments,
-    dependent: :destroy
+    dependent: :destroy,
     inverse_of: :author
 
 

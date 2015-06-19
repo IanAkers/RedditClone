@@ -6,10 +6,10 @@ RedditClone::Application.routes.draw do
   resources :subs do
     resources :posts, only: :new
   end
-  resources :posts, only: [:edit, :update, :create, :destroy] do
+  resources :posts, only: [:edit, :update, :create, :destroy, :show] do
     resources :comments, only: :new
   end
 
-  resources :comments, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy, :show]
 
 end

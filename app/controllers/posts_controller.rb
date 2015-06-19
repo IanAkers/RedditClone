@@ -3,7 +3,6 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @sub_id = params[:sub_id]
-    debugger
   end
 
   def create
@@ -30,6 +29,10 @@ class PostsController < ApplicationController
       flash.now[:errors] = [@post.errors.full_messages]
       render :edit
     end
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   def destroy

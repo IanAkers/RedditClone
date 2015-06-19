@@ -1,0 +1,27 @@
+<h1> Comment by <%= @comment.author.username %> on Post "<%= @comment.post.title.capitalize %>"</h1>
+<%= @comment.content %> by: <%= @comment.author.username %>
+
+  <% unless @comment.child_comments.empty? %>
+    <% @comment.child_comments.each do |child| %>
+      <ul>
+      <%= child.content %> by: <%= child.author.username %>
+      <br>
+      <% unless child.child_comments.empty? %>
+        <ul>
+          <% child.child_comments.each do |grandchild| %>
+            <%= grandchild.content %> by: <%= grandchild.author.username %>
+            <br>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= link_to "Reply form",
+      new_post_comment_url(parent_comment_id: child.id, post_id: @comment.post.id) %>
+    </ul>
+    <% end %>
+  <% end %>
+
+<p>
+  Reply to this Comment
+</p>
+
+<%= link_to "Reply form", new_post_comment_url(parent_comment_id: @comment.id, post_id: @comment.post.id) %>

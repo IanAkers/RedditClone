@@ -22,7 +22,7 @@
   <% @sub.posts.each do |post| %>
     <tr>
       <td>
-        <%= post.title %>
+        <%= link_to post.title, post_url(post) %>
       </td>
       <td>
         <%= post.author.username %>

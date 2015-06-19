@@ -1,0 +1,23 @@
+<h1> <%= @post.title.capitalize %> by <%= @post.author.username %></h1>
+<p> <%= @post.content %></p>
+<p>
+  <% unless @post.comments.empty? %>
+    <% @post.comments.where(parent_comment_id: nil).each do |comment| %>
+      <%= link_to "comment", comment_url(comment) %>
+      <%= comment.author.username  %>: <%= comment.content %>
+      <% if current_user == comment.author  %>
+        <form action="<%= comment_url(comment) %>" method="post">
+          <%= form_auth %>
+          <input type="hidden" name="_method" value="delete">
+          <button>Delete!</button>
+        </form>
+      <% end %>
+       <br>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  Comment on this post
+</p>
+ <%= link_to "Comment Form", new_post_comment_url(post_id: @post.id) %>
