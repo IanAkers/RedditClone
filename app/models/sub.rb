@@ -19,7 +19,11 @@ class Sub < ActiveRecord::Base
     primary_key: :id,
     inverse_of: :subs
 
-  has_many :posts
+  has_many :posts,
+    class_name: "Post",
+    foreign_key: :sub_id,
+    primary_key: :id,
+    dependent: :destroy,
+    inverse_of: :sub
 
-  
 end

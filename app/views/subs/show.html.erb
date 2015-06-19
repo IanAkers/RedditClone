@@ -1,3 +1,55 @@
 <h1><%= @sub.title %></h1>
 
-<p><%= @sub.description %></p>
+<p>
+  <%= @sub.description %> By <%= @sub.moderator.username %>
+</p>
+
+<table>
+  <tr>
+    <th>
+      Title
+    </th>
+    <th>
+      Author
+    </th>
+    <th>
+      URL
+    </th>
+    <th>
+      Content
+    </th>
+  </tr>
+  <% @sub.posts.each do |post| %>
+    <tr>
+      <td>
+        <%= post.title %>
+      </td>
+      <td>
+        <%= post.author.username %>
+      </td>
+      <td>
+        <%= post.url unless post.url.nil? %>
+      </td>
+      <td>
+        <%= post.content unless post.content.nil? %>
+      </td>
+      <% if current_user == post.author %>
+        <td>
+          <%= link_to "Edit", edit_post_url(post) %>
+        </td>
+        <td>
+          <form action="<%= post_url(post) %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <%= form_auth %>
+            <button>Delete</button>
+          </form>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+
+</table>
+<br>
+<br>
+<br>
+<%= link_to "Create New Post", new_sub_post_url(sub_id: @sub.id) %>

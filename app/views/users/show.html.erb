@@ -1,4 +1,7 @@
 <h1><%= @user.username.capitalize %>'s Profile</h1>
+<h3>You have made <%= @user.authored_posts.count %> posts</h3>
+<br>
+<br>  
 <%= link_to "Edit Your Account", edit_user_url(@user) %>
 <br><br>
 
