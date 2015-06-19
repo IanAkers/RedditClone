@@ -1,0 +1,43 @@
+<h1>All The Subs</h1>
+
+<table>
+  <tr>
+    <th>
+      Moderator
+    </th>
+    <th>
+      SubName
+    </th>
+    <th>
+      SubBody
+    </th>
+  </tr>
+
+  <% @subs.each do |sub| %>
+    <tr>
+      <td>
+        <%= sub.moderator.username %>
+      </td>
+      <td>
+        <%= link_to sub.title, sub_url(sub) %>
+      </td>
+      <td>
+        <%= sub.description[0..20]%>...
+      </td>
+      <td>
+        <% if current_user && current_user.id == sub.user_id %>
+          <td>
+            <%= link_to "Edit!", edit_sub_url(sub) %>
+          </td>
+          <td>
+            <form action="<%= sub_url(sub) %>" method="post">
+              <%= form_auth %>
+              <input type="hidden" name="_method" value="delete">
+              <button>Delete!</button>
+            </form>
+          </td>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

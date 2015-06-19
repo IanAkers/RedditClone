@@ -11,6 +11,8 @@
 #
 
 class Sub < ActiveRecord::Base
+  validates :title, :description, presence: true
+
   belongs_to :moderator,
     class_name: "User",
     foreign_key: :user_id,
@@ -18,4 +20,6 @@ class Sub < ActiveRecord::Base
     inverse_of: :subs
 
   has_many :posts
+
+  
 end
