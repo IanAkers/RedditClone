@@ -29,6 +29,11 @@ class User < ActiveRecord::Base
     dependent: :destroy,
     inverse_of: :author
 
+  has_many :comments,
+    dependent: :destroy
+    inverse_of: :author
+
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

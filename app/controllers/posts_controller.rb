@@ -1,14 +1,15 @@
 class PostsController < ApplicationController
 
   def new
-    @post = Post.new(sub_id: params[:sub_id])
+    @post = Post.new
+    @sub_id = params[:sub_id]
+    debugger
   end
 
   def create
     @post = current_user.authored_posts.new(post_params)
-
     if @post.save
-      redirect_to sub_url(@post.sub_id)
+      redirect_to user_url(current_user)
     else
       flash.now[:errors] = [@post.errors.full_messages]
       render :new
@@ -17,13 +18,14 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @sub_id = params[:sub_id]
   end
 
   def update
     @post = Post.find(params[:id])
 
     if @post.update(post_params)
-      redirect_to sub_url(@post.sub_id)
+      redirect_to user_url(current_user)
     else
       flash.now[:errors] = [@post.errors.full_messages]
       render :edit
@@ -41,7 +43,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, sub_ids:[])
   end
 
 end

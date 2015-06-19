@@ -13,7 +13,7 @@
 #
 
 class Post < ActiveRecord::Base
-  validates :title, :sub, :author, presence: true
+  validates :title, :subs, :author, presence: true
 
   belongs_to :author,
     class_name: "User",
@@ -21,6 +21,18 @@ class Post < ActiveRecord::Base
     primary_key: :id,
     inverse_of: :authored_posts
 
-  belongs_to :sub,
-    inverse_of: :posts
+  has_many :post_subs,
+    class_name: "PostSub",
+    foreign_key: :post_id,
+    primary_key: :id,
+    dependent: :destroy,
+    inverse_of: :post
+
+  has_many :subs,
+    through: :post_subs,
+    source: :sub
+
+  has_many :comments,
+    dependent: :destroy,
+    inverse_of: :post
 end
